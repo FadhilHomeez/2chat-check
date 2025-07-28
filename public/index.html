@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2Chat Chat Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fab fa-whatsapp"></i>
+                    <h1>2Chat Chat Viewer</h1>
+                </div>
+                <div class="header-actions">
+                    <button id="refreshBtn" class="btn btn-secondary">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                    <button id="exportBtn" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        Export JSON
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search Form -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-form">
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number (Optional)</label>
+                        <input type="text" id="phoneNumber" placeholder="+1234567890 (leave empty to search all numbers)" class="form-input">
+                        <small class="form-hint">Leave empty to search all predefined numbers automatically</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="groupTitle">Group Title (Optional)</label>
+                        <input type="text" id="groupTitle" placeholder="Search by group name..." class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxPages">Max Pages</label>
+                        <select id="maxPages" class="form-input">
+                            <option value="5">5 pages</option>
+                            <option value="10" selected>10 pages</option>
+                            <option value="20">20 pages</option>
+                            <option value="50">50 pages</option>
+                        </select>
+                    </div>
+                    <button id="searchBtn" class="btn btn-primary btn-large">
+                        <i class="fas fa-search"></i>
+                        Search Chats
+                    </button>
+                    <button id="demoBtn" class="btn btn-secondary btn-large">
+                        <i class="fas fa-play"></i>
+                        Try Demo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-state hidden">
+            <div class="loading-spinner"></div>
+            <p>Searching for chats...</p>
+        </div>
+
+        <!-- Results Section -->
+        <main class="main-content">
+            <!-- Groups List -->
+            <section id="groupsSection" class="groups-section hidden">
+                <div class="section-header">
+                    <h2 id="sectionTitle">Found Groups</h2>
+                    <div class="group-stats">
+                        <span id="groupCount" class="stat">0 groups</span>
+                        <span id="totalMessages" class="stat">0 messages</span>
+                    </div>
+                </div>
+                <div id="groupsList" class="groups-list">
+                    <!-- Groups will be populated here -->
+                </div>
+            </section>
+
+            <!-- Chat Messages -->
+            <section id="chatSection" class="chat-section hidden">
+                <div class="chat-header">
+                    <button id="backToGroups" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Groups
+                    </button>
+                    <div class="chat-info">
+                        <h3 id="currentGroupName">Group Name</h3>
+                        <p id="currentGroupInfo">Group info</p>
+                    </div>
+                    <div class="chat-actions">
+                        <button id="exportGroupBtn" class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Export Group
+                        </button>
+                    </div>
+                </div>
+                <div id="messagesContainer" class="messages-container">
+                    <!-- Messages will be populated here -->
+                </div>
+            </section>
+
+            <!-- No Results State -->
+            <div id="noResultsState" class="no-results hidden">
+                <div class="no-results-content">
+                    <i class="fas fa-search"></i>
+                    <h3>No Results Found</h3>
+                    <p>Try adjusting your search criteria or check your phone number.</p>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state hidden">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Error Occurred</h3>
+                    <p id="errorMessage">An error occurred while searching.</p>
+                    <button id="retryBtn" class="btn btn-primary">Try Again</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Message Template -->
+    <template id="messageTemplate">
+        <div class="message">
+            <div class="message-header">
+                <span class="sender-name"></span>
+                <span class="message-time"></span>
+            </div>
+            <div class="message-content">
+                <div class="message-text"></div>
+                <div class="message-media hidden"></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Group Template -->
+    <template id="groupTemplate">
+        <div class="group-card">
+            <div class="group-info">
+                <div class="group-name"></div>
+                <div class="group-details">
+                    <span class="group-subject"></span>
+                    <span class="group-size"></span>
+                </div>
+            </div>
+            <div class="group-actions">
+                <div class="message-count"></div>
+                <button class="btn btn-primary btn-small view-messages">
+                    <i class="fas fa-eye"></i>
+                    View Messages
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html> 

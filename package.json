@@ -1,0 +1,39 @@
+{
+  "name": "2chat-chat-checker",
+  "version": "1.0.0",
+  "description": "Backend application to search WhatsApp groups and export chat history using 2Chat API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "cli": "node cli.js",
+    "test-setup": "node test-setup.js",
+    "debug": "node debug-422.js",
+    "deploy": "./deploy.sh",
+    "deploy:prod": "./deploy.sh production",
+    "deploy:staging": "./deploy.sh staging",
+    "deploy:dev": "./deploy.sh development",
+    "rollback": "./deploy.sh rollback",
+    "docker:build": "docker build -t 2chat-checker .",
+    "docker:run": "docker run -p 3000:3000 --env-file .env 2chat-checker",
+    "docker:compose": "docker-compose up -d",
+    "docker:compose:down": "docker-compose down",
+    "pm2:start": "pm2 start ecosystem.config.js --env production",
+    "pm2:stop": "pm2 stop 2chat-checker",
+    "pm2:restart": "pm2 restart 2chat-checker",
+    "pm2:logs": "pm2 logs 2chat-checker",
+    "pm2:monit": "pm2 monit"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["2chat", "whatsapp", "api", "chat-history"],
+  "author": "",
+  "license": "MIT"
+} 
